@@ -98,3 +98,29 @@ function loginUser($conn, $email, $pwd) {
     }
 
 }
+
+function emptyAddData($patron1, $patron2, $calle, $colonia, $codigoPostal, $sector, $zona, $coordenadas, $sect, $tes) {
+    $result;
+    if (empty($patron1) || empty($patron2) || empty($calle) || empty($calle) || empty($colonia) || empty($codigoPostal) || empty($sector) || empty($zona) || empty($coordenadas) || empty($sect) || empty($tes)) {
+        $result = true;
+    }
+    else {
+        $result = false;
+    }
+    return $result;
+}
+
+function addData($conn, $patron1, $patron2, $calle, $colonia, $codigoPostal, $sector, $zona, $coordenadas, $sect, $tes) {
+    $sql = "INSERT INTO ermitas (patron1, patron2, calle, col, CP, sector, zonaa, coord, sect, tes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../html/index2.html?error=stmtFailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "ssssssssss", $patron1, $patron2, $calle, $colonia, $codigoPostal, $sector, $zona, $coordenadas, $sect, $tes);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    header("location: ../html/index2.html?error=none");
+    exit();
+}

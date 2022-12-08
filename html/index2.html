@@ -264,6 +264,31 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
+	<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+		  <a class="navbar-brand" href="#">Iglesia</a>
+		  <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+			<li class="nav-item active">
+			  <a class="nav-link" href="#">Ermitas</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="#">Servicios</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="#">Servidores</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Voluntarios</a>
+			  </li>
+		  </ul>
+		  <form class="form-inline my-2 my-lg-0">
+			<button class="btn-danger my-2 my-sm-0" type="button" href="">Desconectar</button>
+		  </form>
+		</div>
+	  </nav>
 <div class="container-xl">
 	<div class="table-responsive">
 		<div class="table-wrapper">
@@ -391,36 +416,60 @@ $(document).ready(function(){
 		</div>
 	</div>        
 </div>
-<!-- Edit Modal HTML -->
+<!-- Add Modal HTML -->
 <div id="addEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form>
+			<form action="../includes/add.inc.php" method="post">
 				<div class="modal-header">						
 					<h4 class="modal-title">Agregar Nuevo</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
-						<label>Nombre</label>
-						<input type="text" class="form-control" required>
+						<label>Patron 1</label>
+						<input type="text" class="form-control" required name="AddPatron1">
 					</div>
 					<div class="form-group">
-						<label>Email</label>
-						<input type="email" class="form-control" required>
+						<label>Patron 2</label>
+						<input type="text" class="form-control" required name="AddPatron2">
 					</div>
 					<div class="form-group">
-						<label>Direccion</label>
-						<textarea class="form-control" required></textarea>
+						<label>Calle</label>
+						<input type="text" class="form-control" required name="AddCalle">
 					</div>
 					<div class="form-group">
-						<label>Telefono</label>
-						<input type="text" class="form-control" required>
-					</div>					
+						<label>Colonia</label>
+						<input type="text" class="form-control" required name="AddColonia">
+					</div>
+					<div class="form-group">
+						<label>Codigo Postal</label>
+						<input type="text" class="form-control" required name="AddCP">
+					</div>
+					<div class="form-group">
+						<label>Sector</label>
+						<input type="text" class="form-control" required name="AddSector">
+					</div>
+					<div class="form-group">
+						<label>Zona</label>
+						<input type="text" class="form-control" required name="AddZona">
+					</div>
+					<div class="form-group">
+						<label>Coordenadas</label>
+						<input type="text" class="form-control" required name="AddCoordenadas">
+					</div>
+					<div class="form-group">
+						<label>Sect</label>
+						<input type="text" class="form-control" required name="AddSect">
+					</div>
+					<div class="form-group">
+						<label>Tes</label>
+						<input type="text" class="form-control" required name="AddTes">
+					</div>
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-					<input type="submit" class="btn btn-success" value="Agregar">
+					<input type="submit" class="btn btn-success" value="Agregar" name="addData">
 				</div>
 			</form>
 		</div>
