@@ -17,7 +17,7 @@ if (isset($_POST["addData"])) {
     require_once 'functions.inc.php';
 
     if (emptyAddData($patron1, $patron2, $calle, $colonia, $codigoPostal, $sector, $zona, $coordenadas, $sect, $tes) !== false) {
-        header("location: ../html/index2.html?error=emptyAdd");
+        header("location: ../html/index2.php?error=emptyAdd");
         exit();
     }
 

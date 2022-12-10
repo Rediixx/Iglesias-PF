@@ -114,13 +114,28 @@ function addData($conn, $patron1, $patron2, $calle, $colonia, $codigoPostal, $se
     $sql = "INSERT INTO ermitas (patron1, patron2, calle, col, CP, sector, zonaa, coord, sect, tes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../html/index2.html?error=stmtFailed");
+        header("location: ../html/index2.php?error=stmtFailed");
         exit();
     }
 
     mysqli_stmt_bind_param($stmt, "ssssssssss", $patron1, $patron2, $calle, $colonia, $codigoPostal, $sector, $zona, $coordenadas, $sect, $tes);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("location: ../html/index2.html?error=none");
+    header("location: ../html/index2.php?error=none");
+    exit();
+}
+
+function deleteData($conn, $id) {
+    $sql = "DELETE FROM ermitas WHERE idnE = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../html/index2.php?error=stmtFailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    header("location: ../html/index2.php?error=none");
     exit();
 }
