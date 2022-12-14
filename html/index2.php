@@ -326,19 +326,20 @@ $(document).ready(function(){
 						while ($row = mysqli_fetch_assoc($result)) {
 							?>
 							<tr>
-								<td><?php echo $row['patron1'] ?></td>
-								<td><?php echo $row['patron2'] ?></td>
-								<td><?php echo $row['calle'] ?></td>
-								<td><?php echo $row['col'] ?></td>
-								<td><?php echo $row['CP'] ?></td>
-								<td><?php echo $row['sector'] ?></td>
-								<td><?php echo $row['zonaA'] ?></td>
-								<td><?php echo $row['coord'] ?></td>
-								<td><?php echo $row['sect'] ?></td>
-								<td><?php echo $row['tes'] ?></td>
+								<td class="id" style="display:none;"><?php echo $row['idnE'] ?></td>
+								<td class="p1"><?php echo $row['patron1'] ?></td>
+								<td class="p2"><?php echo $row['patron2'] ?></td>
+								<td class="calle"><?php echo $row['calle'] ?></td>
+								<td class="colonia"><?php echo $row['col'] ?></td>
+								<td class="cp"><?php echo $row['CP'] ?></td>
+								<td class="sector"><?php echo $row['sector'] ?></td>
+								<td class="zonaA"><?php echo $row['zonaA'] ?></td>
+								<td class="coord"><?php echo $row['coord'] ?></td>
+								<td class="sect"><?php echo $row['sect'] ?></td>
+								<td class="tes"><?php echo $row['tes'] ?></td>
 								<td>
-									<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-									<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
+									<a href="#editEmployeeModal" class="edit edit_btn" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+									<a href="#deleteEmployeeModal" class="delete delete_btn" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
 								</td>
 							</tr>
 							<?php
@@ -412,32 +413,57 @@ $(document).ready(function(){
 <div id="editEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form>
+			<form action="../includes/update.inc.php" method="post">
 				<div class="modal-header">						
 					<h4 class="modal-title">Editar Dato</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
-						<label>Nombre</label>
-						<input type="text" class="form-control" required>
+						<label>Patron 1</label>
+						<input type="hidden" name="edit_id" id="edit_id">
+						<input type="text" class="form-control" required name="EditPatron1" id="EditPatron1">
 					</div>
 					<div class="form-group">
-						<label>Email</label>
-						<input type="email" class="form-control" required>
+						<label>Patron 2</label>
+						<input type="text" class="form-control" required name="EditPatron2" id="EditPatron2">
 					</div>
 					<div class="form-group">
-						<label>Direccion</label>
-						<textarea class="form-control" required></textarea>
+						<label>Calle</label>
+						<input type="text" class="form-control" required name="EditCalle" id="EditCalle">
 					</div>
 					<div class="form-group">
-						<label>Telefono</label>
-						<input type="text" class="form-control" required>
-					</div>					
+						<label>Colonia</label>
+						<input type="text" class="form-control" required name="EditColonia" id="EditColonia">
+					</div>
+					<div class="form-group">
+						<label>Codigo Postal</label>
+						<input type="text" class="form-control" required name="EditCP" id="EditCP">
+					</div>
+					<div class="form-group">
+						<label>Sector</label>
+						<input type="text" class="form-control" required name="EditSector" id="EditSector">
+					</div>
+					<div class="form-group">
+						<label>Zona</label>
+						<input type="text" class="form-control" required name="EditZona" id="EditZona">
+					</div>
+					<div class="form-group">
+						<label>Coordenadas</label>
+						<input type="text" class="form-control" required name="EditCoordenadas" id="EditCoordenadas">
+					</div>
+					<div class="form-group">
+						<label>Sect</label>
+						<input type="text" class="form-control" required name="EditSect" id="EditSect">
+					</div>
+					<div class="form-group">
+						<label>Tes</label>
+						<input type="text" class="form-control" required name="EditTes" id="EditTes">
+					</div>
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-					<input type="submit" class="btn btn-info" value="Guardar">
+					<input type="submit" class="btn btn-info" value="Guardar" name="updateData">
 				</div>
 			</form>
 		</div>
@@ -447,12 +473,13 @@ $(document).ready(function(){
 <div id="deleteEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="../includes/delete.inc.php" method="post">
+			<form action="../includes/delete.inc.php" method="POST">
 				<div class="modal-header">						
 					<h4 class="modal-title">Eliminar</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
+					<input type="hidden" name="delete_id" id="delete_id">				
 					<p>Esta seguro que desea eliminar esta entrada?</p>
 					<p class="text-warning"><small>Esta accion no puede ser revertida.</small></p>
 				</div>
@@ -466,12 +493,38 @@ $(document).ready(function(){
 </div>
 
 <script>
-	$(document.ready(function () {
-		$('.deleteBtn').on('click', function() {
-			$('#deleteEmployeeModal').modal('show');
+	$(document).ready(function () {
+		
+		$('.delete_btn').click(function (e) {
+			e.preventDefault();
+			var id = $(this).closest('tr').find('.id').text();
+			$('#delete_id').val(id);
+			console.log(id);
 		});
-	}));
-</script>
 
+		$('.edit_btn').click(function (e) {
+			e.preventDefault();
+			
+			$tr = $(this).closest('tr');
+
+			var data = $tr.children('td').map(function() {
+				return $(this).text();
+			}).get();
+			console.log(data);
+
+			$('#edit_id').val(data[0]);
+			$('#EditPatron1').val(data[1]);
+			$('#EditPatron2').val(data[2]);
+			$('#EditCalle').val(data[3]);
+			$('#EditColonia').val(data[4]);
+			$('#EditCP').val(data[5]);
+			$('#EditSector').val(data[6]);
+			$('#EditZona').val(data[7]);
+			$('#EditCoordenadas').val(data[8]);
+			$('#EditSect').val(data[9]);
+			$('#EditTes').val(data[10]);
+		});
+	});
+</script>
 </body>
 </html>

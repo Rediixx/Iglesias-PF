@@ -139,3 +139,20 @@ function deleteData($conn, $id) {
     header("location: ../html/index2.php?error=none");
     exit();
 }
+
+function editData($conn, $id, $patron1, $patron2, $calle, $colonia, $codigoPostal, $sector, $zona, $coordenadas, $sect, $tes) {
+    $sql = "UPDATE ermitas
+            SET patron1 = ?, patron2 = ?, calle = ?, col = ?, CP = ?, sector = ?, zonaA = ?, coord = ?, sect = ?, tes = ?
+            WHERE idnE = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../html/index2.php?error=stmtFailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "sssssssssss", $patron1, $patron2, $calle, $colonia, $codigoPostal, $sector, $zona, $coordenadas, $sect, $tes, $id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    header("location: ../html/index2.php?error=none");
+    exit();
+}

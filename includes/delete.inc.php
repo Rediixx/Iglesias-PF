@@ -1,13 +1,11 @@
 <?php
 
-if (isset($POST["deleteData"])) {
+if (isset($_POST["deleteData"])) {
 
-    $id = $_POST['id'];
+    $id = $_POST['delete_id'];
 
     require_once 'dbh.inc.php';
     require_once 'functions.inc.php';
-
-    echo $id;
 
     deleteData($conn, $id);
 
